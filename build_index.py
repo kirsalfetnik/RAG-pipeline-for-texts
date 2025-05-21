@@ -29,3 +29,12 @@ def main() -> None:
     vectordb = FAISS.from_documents(docs, embedder)
     vectordb.save_local(str(STORE_DIR))
 
+    (STORE_DIR / "params.json").write_text(
+        json.dumps({"emb_model": EMB_MODEL, "chunk": CHUNK, "overlap": OVERLAP}, indent=2)
+    )
+    print(f"Indexed {len(docs)} chunks: {STORE_DIR}")
+
+
+if __name__ == "__main__":
+    main()
+
