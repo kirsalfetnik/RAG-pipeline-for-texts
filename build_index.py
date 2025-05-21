@@ -21,4 +21,11 @@ def main() -> None:
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK, chunk_overlap=OVERLAP)
     docs: List[Document] = []
+    for rec in tqdm(records, desc="Chunking"):
+        for chunk in splitter.split_text(rec["content"]):
+            docs.append(Document(page_content=chunk, metadata=rec["meta"]))
+    
+    embedder = SentenceTransformerEmbeddings(model_name=EMB_MODEL)
+    vectordb = FAISS.from_documents(docs, embedder)
+    vectordb.save_local(str(STORE_DIR))
 
