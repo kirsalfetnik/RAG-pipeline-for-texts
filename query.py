@@ -61,7 +61,7 @@ def ask(question_words: List[str], top_k: int) -> None:
     # llm = ChatOpenAI(model_name=os.getenv("LLM_MODEL", "gpt-4o-mini"), temperature=0)
     qa = RetrievalQA.from_chain_type(
         llm,
-        chain_type="refine", # "map_rerank" by default
+        chain_type="stuff", # "map_rerank" by default
         retriever=db.as_retriever(search_kwargs={"k": top_k}),
         return_source_documents=True,
     )
