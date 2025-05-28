@@ -13,8 +13,8 @@ from tqdm import tqdm
 CACHE_FILE = Path("interim/ingested.pkl")
 STORE_DIR = Path("vector_store")
 EMB_MODEL = "all-MiniLM-L6-v2"
-CHUNK = 800
-OVERLAP = 100
+CHUNK = 400 # default: 800
+OVERLAP = 50 # default: 100
 
 def main() -> None:
     records: List[dict] = pickle.load(CACHE_FILE.open("rb"))
