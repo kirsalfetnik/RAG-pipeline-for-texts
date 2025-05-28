@@ -4,6 +4,9 @@ import json
 import os
 from pathlib import Path
 from typing import List
+from fpdf import FPDF
+from datetime import datetime
+import re
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,6 +20,23 @@ from langchain.chains import RetrievalQA
 
 STORE_DIR = Path("vector_store")
 DEFAULT_TOP_K = 6
+
+def sanitize(text: str) -> str:
+    text = (
+        text
+        .replace("≥", ">=")
+        .replace("≤", "<=")
+        .replace("…", "...")
+        .replace("–", "-")    
+        .replace("—", "--")   
+        .replace("“", '"')
+        .replace("”", '"')
+        .replace("‘", "'")
+        .replace("’", "'")
+        .replace("↓", "v")
+        .replace("↑", "^")
+    )
+    return re.sub(r"[^\x20-\x7E\r\n]", "", text)
 
 def ask(question_words: List[str], top_k: int) -> None:
     cfg = json.loads((STORE_DIR / "params.json").read_text())
@@ -52,6 +72,35 @@ def ask(question_words: List[str], top_k: int) -> None:
     print("Sources:")
     for doc in result["source_documents"]:
         print(" -", doc.metadata)
+
+    # Save PDF-file
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    pdf.cell(0, 10, "RAG Pipeline Answer", ln=True, align="C")
+    pdf.ln(5)
+    # Input
+    question_text = " ".join(question_words)
+    question_text = sanitize(" ".join(question_words))
+    pdf.multi_cell(pdf.epw, 8, f"Question: {question_text}")
+    pdf.ln(2)
+    # Output
+    answer_text = sanitize(result["result"])
+    pdf.multi_cell(pdf.epw, 8, f"Answer:\n{answer_text}")
+    pdf.ln(4)
+    # Sources
+    pdf.multi_cell(pdf.epw, 8, "Sources:")
+    for doc in result["source_documents"]:
+        meta = "; ".join(f"{k}={v}" for k, v in doc.metadata.items())
+        safe_line = sanitize(f"- {meta}")
+        pdf.multi_cell(pdf.epw, 6, safe_line)
+
+    # Timestamps
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_path = STORE_DIR.parent / f"answer_{ts}.pdf"
+    pdf.output(str(out_path))
+    print(f"\n Answer saved to {out_path}")
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Query the RAG index")
