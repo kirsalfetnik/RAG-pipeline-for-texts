@@ -18,7 +18,7 @@ CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
 def clean_table(df: pd.DataFrame) -> pd.DataFrame:
     df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
     df = df.dropna(how="all").dropna(axis=1, how="all")
-    df.columns = [slugify(col) for col in df.columns]
+    df.columns = [slugify(str(c)) for c in df.columns]
     df = df[~df.apply(lambda r: (r == df.columns).all(), axis=1)]
     df = df.apply(pd.to_numeric, errors="ignore")
     df = df.loc[:, (df != df.iloc[0]).any()]

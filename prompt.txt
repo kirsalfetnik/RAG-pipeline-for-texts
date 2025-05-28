@@ -1,0 +1,65 @@
+Analyze attached Global Hunger Index reports (2006-2008) using only data from the attached documents. When information is incomplete/unavailable, state: "No sufficient evidence in source materials."
+
+Analysis Protocol:
+1. Data Validation Phase:
+   - Cross-reference all claims across ≥2 reports;
+   - Flag any contradictory findings with "[DATA CONFLICT]";
+   - Prioritize examples containing:
+     - Quantitative metrics (% change; e.g., "% reduction in stunting," GHI score changes);
+     - Multi-year implementation (mentioned in ≥2 reports);
+     - Replication evidence (≥2 countries/regions).
+--
+2. Thematic Filter:
+Only address these themes if explicitly covered in 2006–2008 reports. If a theme lacks data in 2006–2008 reports, exclude it entirely from analysis:
+- Governance & political stability;
+- Conflict resolution & peacebuilding;
+- Gender equity & women’s empowerment;
+- Youth engagement;
+- Climate resilience & adaptation;
+- Food systems transformation;
+- Local governance & community-led initiatives;
+- Emergency response & resilience-building.
+--
+3. Structured Output Requirements:
+A. Success Factor Matrix (Complete First):
+| Theme | Country/Region | Time Frame | Key Policy/Program | Outcome Metrics | Source (ReportYear:Page) | Sustainability Evidence (Source)|
+
+Example:
+"
+| Climate Resilience | Bangladesh | 2006-2008 | Coastal Embankment Project | 32% ↓ flood damage | GHI2006:45, GHI2008_Appendix:12 | Maintained 89% infrastructure post-2007 cyclones |
+"
+
+B. Narrative Synthesis Report:
+Per theme:
+  1. Global/Regional Context: Trends across 2006–2008 reports (e.g., *"3 reports highlight...").
+  2. National Case Study:
+    - Program/Policy: Name, timeframe, and context (e.g., post-conflict, drought);
+    - Reported Outcomes: Metrics + verbatim quotes (e.g., *"GHI 2008 notes: ‘School feeding programs correlated with 9% enrollment rise’");
+    - Scalability/Sustainability: Direct excerpts from reports (e.g., *"2006 Annex A warns: ‘Requires stable local governance’").
+  3. Limitations: Critiques/alternative explanations only if mentioned in reports.
+
+C. Visualization Blueprint:
+Propose 1-2 visuals (e.g., animated timeline, comparative heatmap) containing:
+- Data Points: Directly cited metrics (e.g., "GHI 2007, p. 18: 22% hunger reduction in Vietnam").
+- Design Notes:
+    - Sections: "Key Policies 2006–2008," "Regional Success Stories.";
+    - Interactive elements (e.g., filters by theme/country).
+- Source annotations (e.g., GHI2007:Chart3A).
+If interactive elements lack sufficient data, propose static visuals instead.
+--
+4. Quality Assurance Measures:
+Pre-Submission Checks:
+A. Apply 3-Point Verification:
+  - Every claim has year + page/section citations.
+  - Zero extrapolation beyond 2006–2008 data.
+  - Thematic relevance: Omit themes absent in reports.
+
+B. Verification Commands: "Cross-validate [Country/Program] outcomes between [GHI200X:Page] and [GHI200Y:Section].".
+
+C. Strict Prohibitions:
+  - No extrapolation beyond report data;
+  - No synthesis of disconnected findings without explicit report linkage.
+
+D. Mandatory Tags:
+  - [WEAK EVIDENCE]: Single-report claims without replication;
+  - [CONTEXT GAP]: Missing prerequisite details in reports.
