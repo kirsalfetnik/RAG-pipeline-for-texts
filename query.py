@@ -81,17 +81,6 @@ def ask(question_words: List[str], top_k: int) -> None:
          allow_dangerous_deserialization=True 
      )
 
-    tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-large") # Alternative model
-    model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-large") # Alternative model
-    hf_pipe = pipeline( # Alternative model
-        "text2text-generation",
-        model=model,
-        tokenizer=tokenizer,
-        device_map="auto",
-        max_length=512,
-        truncation=True  
-    )
-
     # llm = ChatOpenAI(model_name=os.getenv("LLM_MODEL", "gpt-4o-mini"), temperature=0)
 
     q = " ".join(question_words)
@@ -102,7 +91,7 @@ def ask(question_words: List[str], top_k: int) -> None:
 
     qa = RetrievalQA.from_chain_type(
         llm,
-         chain_type="stuff",
+        chain_type="stuff",
         retriever=db.as_retriever(
              search_kwargs={
                  "k": top_k,        
