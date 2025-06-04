@@ -13,7 +13,7 @@ from tqdm import tqdm
 CACHE_FILE = Path("interim/ingested.pkl")
 STORE_DIR = Path("vector_store")
 EMB_MODEL = "all-MiniLM-L6-v2"
-CHUNK = 800 # default: 800
+CHUNK = 1000 
 OVERLAP = 100 # default: 100
 
 def main() -> None:
